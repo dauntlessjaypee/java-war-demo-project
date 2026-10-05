@@ -1,0 +1,23 @@
+services:
+
+  java-app:
+    image: java-war-docker-demo:1.0
+    container_name: java-war-demo
+    networks:
+      - java-app-network
+
+  nginx:
+    image: nginx:latest
+    container_name: nginx-proxy
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
+    networks:
+      - java-app-network
+    depends_on:
+      - java-app
+
+networks:
+  java-app-network:
+    driver: bridge
