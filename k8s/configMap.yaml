@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: java-war-config
+  namespace: java-war-demo
+data:
+    APP_MESSAGE: "This is read from ConfigMap."
+
