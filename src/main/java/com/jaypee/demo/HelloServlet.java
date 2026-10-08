@@ -18,13 +18,28 @@ public class HelloServlet extends HttpServlet {
 
         response.setContentType("text/html");
 
+        String message = System.getenv("APP_MESSAGE");
+
+        if (message == null) {
+            message = "ConfigMap message not available";
+        }
+
         PrintWriter out = response.getWriter();
 
         out.println("<html>");
         out.println("<body>");
         out.println("<h1>Java Docker Demo</h1>");
         out.println("<p>Application deployed successfully on Tomcat!</p>");
+        out.println("<p>ConfigMap Message: " + escapeHtml(message) + "</p>");
         out.println("</body>");
         out.println("</html>");
+    }
+
+    private String escapeHtml(String value) {
+        return value.replace("&", "&amp;")
+                    .replace("<", "&lt;")
+                    .replace(">", "&gt;")
+                    .replace("\"", "&quot;")
+                    .replace("'", "&#39;");
     }
 }
